@@ -1,5 +1,0 @@
-<?php declare(strict_types=1);
-$redis = new Redis();
-$redis->pconnect('127.0.0.1', 6379);
-
-$countriesList = ['ru', 'us', 'cy'];

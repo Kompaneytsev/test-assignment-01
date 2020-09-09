@@ -15,7 +15,7 @@ php tests/load_testing.php
 ## Описание методов
 ### Засчитываем просмотр
 ```shell script
-POST http://127.0.0.1:3002/index.php?action=increment
+POST http://127.0.0.1:3002/index.php/increment
 ```
 с телом form-data
 ```
@@ -24,7 +24,7 @@ param=ru
 
 ### Статистика
 ```shell script
-GET http://127.0.0.1:3002/index.php?action=list
+GET http://127.0.0.1:3002/index.php/list
 ```
 
 ## Задание

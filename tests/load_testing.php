@@ -9,7 +9,7 @@ function randomCountryCode(): string {
 }
 
 $chs = [];
-$url = 'http://127.0.0.1:3002/index.php?action=increment';
+$url = 'http://127.0.0.1:3002/index.php/increment';
 
 $mh = curl_multi_init();
 for ($key = 1; $key <= $requestsCount; $key++) {

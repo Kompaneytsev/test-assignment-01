@@ -1,0 +1,9 @@
+v1_list:
+  path: /list
+  controller: 'App\Action\ListAction'
+  methods: GET
+
+v1_increment:
+  path: /increment
+  controller: 'App\Action\IncrementAction'
+  methods: POST
