@@ -6,6 +6,7 @@
         "symfony/http-foundation": "^5.1",
         "symfony/yaml": "^5.1",
         "symfony/config": "^5.1",
+        "php": "^7.4",
         "ext-redis": "*",
         "ext-json": "*"
     },

@@ -3,19 +3,16 @@
 namespace App\Action;
 
 use App\Model\Codes;
-use Redis;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-class ListAction implements Action
+class ListAction extends AbstractAction implements Action
 {
     public function run(): JsonResponse
     {
-        $redis = new Redis();
-        $redis->pconnect('127.0.0.1', 6379);
         $countriesList = Codes::COUNTRIES;
         $responseBody = [];
         foreach ($countriesList as $item) {
-            $responseBody[$item] = $redis->get($item);
+            $responseBody[$item] = $this->dataManager->get($item);
         }
         return new JsonResponse($responseBody);
     }

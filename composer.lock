@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dd3a5223b18eb0a2b6988442527598b1",
+    "content-hash": "a5617791d63b583442cde2e22df46ebf",
     "packages": [
         {
             "name": "symfony/config",
@@ -1000,7 +1000,9 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "ext-redis": "*"
+        "php": "^7.4",
+        "ext-redis": "*",
+        "ext-json": "*"
     },
     "platform-dev": {
         "ext-curl": "*"

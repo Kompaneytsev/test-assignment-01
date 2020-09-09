@@ -4,28 +4,24 @@ namespace App\Action;
 
 use App\Exception\ValidationException;
 use App\Model\Codes;
-use Redis;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-class IncrementAction implements Action
+class IncrementAction extends AbstractAction implements Action
 {
     public function run(): JsonResponse
     {
-        $redis = new Redis();
-        $redis->pconnect('127.0.0.1', 6379);
-
         $requestParam = $_REQUEST['param'] ?? null;
         if ($requestParam === null) {
             throw new BadRequestException('Передайте параметр в теле запроса');
         }
 
         if (in_array($requestParam, Codes::COUNTRIES, true)) {
-            $value = $redis->incr($requestParam);
+            $value = $this->dataManager->incr($requestParam);
             $responseBody = [$requestParam => $value];
             return new JsonResponse($responseBody);
         }
 
-        throw new ValidationException('Выберите параметр из доступного списка');
+        throw new ValidationException('Выберите параметр из доступного списка: ' . implode(', ', Codes::COUNTRIES));
     }
 }
