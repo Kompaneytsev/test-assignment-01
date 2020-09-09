@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-$requestsCount = 300;
+$requestsCount = 256;
 
 function randomCountryCode(): string {
     $countriesList = ['ru', 'us', 'cy'];
@@ -28,7 +28,6 @@ do {
     curl_multi_exec($mh, $running);
 } while ($running);
 
-$errors = 0;
 $sent = 0;
 $lost = 0;
 
@@ -38,14 +37,13 @@ foreach(array_keys($chs) as $key){
     $time = curl_getinfo($chs[$key], CURLINFO_TOTAL_TIME);
     $response = curl_multi_getcontent($chs[$key]);  // get results
     if (!empty($error)) {
-        $errors++;
-//        echo "The request $key return a error: $error" . "\n";
+        echo "The request $key return a error: $error" . PHP_EOL;
     } else {
         $sent++;
         if (strlen($response) === 0) {
             $lost++;
         }
-//        echo "The request to '$last_effective_URL' returned '$response' in $time seconds." . "\n";
+//        echo "The request to '$last_effective_URL' returned '$response' in $time seconds." . PHP_EOL;
     }
     curl_multi_remove_handle($mh, $chs[$key]);
 }

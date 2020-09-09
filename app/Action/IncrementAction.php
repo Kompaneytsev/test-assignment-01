@@ -2,7 +2,10 @@
 
 namespace App\Action;
 
+use App\Exception\ValidationException;
+use App\Model\Codes;
 use Redis;
+use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class IncrementAction implements Action
@@ -11,17 +14,18 @@ class IncrementAction implements Action
     {
         $redis = new Redis();
         $redis->pconnect('127.0.0.1', 6379);
-        $countriesList = ['ru', 'us', 'cy'];
 
         $requestParam = $_REQUEST['param'] ?? null;
-        if ($requestParam !== null && in_array($requestParam, $countriesList, true)) {
+        if ($requestParam === null) {
+            throw new BadRequestException('Передайте параметр в теле запроса');
+        }
+
+        if (in_array($requestParam, Codes::COUNTRIES, true)) {
             $value = $redis->incr($requestParam);
             $responseBody = [$requestParam => $value];
-            $responseCode = 200;
-        } else {
-            $responseBody = 'bad request';
-            $responseCode = 400;
+            return new JsonResponse($responseBody);
         }
-        return new JsonResponse($responseBody, $responseCode);
+
+        throw new ValidationException('Выберите параметр из доступного списка');
     }
 }

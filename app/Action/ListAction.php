@@ -2,6 +2,7 @@
 
 namespace App\Action;
 
+use App\Model\Codes;
 use Redis;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
@@ -11,12 +12,11 @@ class ListAction implements Action
     {
         $redis = new Redis();
         $redis->pconnect('127.0.0.1', 6379);
-        $countriesList = ['ru', 'us', 'cy'];
+        $countriesList = Codes::COUNTRIES;
         $responseBody = [];
         foreach ($countriesList as $item) {
             $responseBody[$item] = $redis->get($item);
         }
-        $redis->close();
         return new JsonResponse($responseBody);
     }
 }
