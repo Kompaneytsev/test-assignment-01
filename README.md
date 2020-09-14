@@ -2,20 +2,21 @@
 Текст задачи ниже
 ## Как запустить
 ```shell script
-sudo docker-compose up
+sudo docker-compose up  --no-deps --build
+sudo docker exec -it XXXXXXXXXXXX bash
+service redis-server start && service php7.4-fpm start && service nginx start
 php command/empty.php
-php -S 127.0.0.1:3002 -t public/
 ```
 
 ## Как тестировать
 ```shell script
-php tests/load_testing.php
+ab -T 'application/x-www-form-urlencoded' -p tests/post.txt -c 10000 -n 10000 -t 1 http://127.0.0.1:3002/increment
 ```
 
 ## Описание методов
 ### Засчитываем просмотр
 ```shell script
-POST http://127.0.0.1:3002/index.php/increment
+POST http://127.0.0.1:3002/increment
 ```
 с телом form-data
 ```
@@ -24,7 +25,7 @@ param=ru
 
 ### Статистика
 ```shell script
-GET http://127.0.0.1:3002/index.php/list
+GET http://127.0.0.1:3002/list
 ```
 
 ## Задание

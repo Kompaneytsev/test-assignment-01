@@ -1,8 +1,11 @@
 version: '3.1'
 
 services:
-
-  nosql:
-    image: redis
+  backend:
+    build: ./env/nginx_php-fpm
+    tty: true
     ports:
+      - 3002:80
       - 6379:6379
+    volumes:
+      - .:/app

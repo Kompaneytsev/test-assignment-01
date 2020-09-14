@@ -9,6 +9,4 @@ use App\Model\Codes;
 $redis = new Redis();
 $redis->pconnect('127.0.0.1', 6379);
 
-foreach (Codes::COUNTRIES as $value) {
-    $redis->set($value, 0);
-}
+$redis->del(Codes::HASH);

@@ -1,0 +1,8 @@
+---
+- name: Накатываем систему
+  hosts: all
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+  roles:
+    - install-common
+    - install-php-fpm

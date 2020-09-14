@@ -9,11 +9,11 @@ class ListAction extends AbstractAction implements Action
 {
     public function run(): JsonResponse
     {
-        $countriesList = Codes::COUNTRIES;
-        $responseBody = [];
-        foreach ($countriesList as $item) {
-            $responseBody[$item] = $this->dataManager->get($item);
-        }
-        return new JsonResponse($responseBody);
+        return new JsonResponse(
+            array_map('intval', array_merge(
+                array_fill_keys(Codes::COUNTRIES, 0),
+                $this->dataManager->hGetAll(Codes::HASH)
+            ))
+        );
     }
 }

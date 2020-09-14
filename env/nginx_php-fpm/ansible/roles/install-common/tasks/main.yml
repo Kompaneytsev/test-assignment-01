@@ -1,0 +1,12 @@
+---
+- name: Тянем общие зависимости
+  apt: name={{ item }} update_cache=yes state=latest
+  loop: [ 'aptitude', 'software-properties-common', 'curl', 'git', 'zip', 'nginx', 'redis-server' ]
+
+- name: Апдейтим apt
+  apt: update_cache=yes
+
+- name: Делаем активным Redis
+  systemd:
+    name: redis-server
+    enabled: yes

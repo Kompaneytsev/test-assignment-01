@@ -1,0 +1,26 @@
+---
+- name: Устанавливаем репозиторий для PHP 7.4
+  apt_repository:
+    repo: ppa:ondrej/php
+    state: present
+
+- name: Устанавливаем PHP 7.4
+  apt: name={{ item }} update_cache=yes state=latest
+  loop: [ 'php7.4', 'php7.4-dev', 'php7.4-fpm', 'php7.4-curl', 'php7.4-bcmath', 'php7.4-bz2', 'php7.4-intl', 'php7.4-opcache', 'php7.4-redis' ]
+
+- name: Удаляем apache2
+  apt:
+    pkg: apache2 apache2-utils apache2.2-bin apache2-common
+    state: absent
+
+- name: Скачиваем Composer
+  get_url:
+    url: https://getcomposer.org/installer
+    dest: /tmp/composer-installer.php
+    mode: 0755
+
+- name: Запускаем установку Composer
+  command: php composer-installer.php chdir=/tmp creates=/usr/local/bin/composer
+
+- name: Делаем Composer глобальным
+  command: mv /tmp/composer.phar /usr/local/bin/composer creates=/usr/local/bin/composer

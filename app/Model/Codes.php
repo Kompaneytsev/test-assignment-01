@@ -7,5 +7,6 @@ namespace App\Model;
  */
 class Codes
 {
+    public const HASH = 'countries';
     public const COUNTRIES = ['ru', 'us', 'cy'];
 }

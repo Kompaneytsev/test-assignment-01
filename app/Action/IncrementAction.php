@@ -17,7 +17,7 @@ class IncrementAction extends AbstractAction implements Action
         }
 
         if (in_array($requestParam, Codes::COUNTRIES, true)) {
-            $value = $this->dataManager->incr($requestParam);
+            $value = $this->dataManager->hIncrBy(Codes::HASH, $requestParam, 1);
             $responseBody = [$requestParam => $value];
             return new JsonResponse($responseBody);
         }
